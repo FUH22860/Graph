@@ -1,6 +1,8 @@
 package application;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -46,14 +48,44 @@ public class RootBorderPane extends BorderPane {
 		btImport.setOnAction(event -> importCSV());
 	}
 	
-	private void importCSV() {
-        FileChooser fileChooser = new FileChooser();
+	public void importCSV() {
+		String extension = "";
+		
+		FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(null);
         
-        if (selectedFile != null) {
-        	
-        } else {
-        	
-        }
+        
+        File Readfile = selectedFile;
+		if (Readfile.exists()) {
+			String FileName = Readfile.getName();
+			String FilePath = Readfile.getAbsolutePath();
+
+			  int index = FileName.lastIndexOf('.');
+			  if (index > 0) {
+			      extension = FileName.substring(index + 1);
+			  }
+			  System.out.println(extension);
+			  
+		} else {
+			System.out.println("The file does not exist.");
+		}
+		
+		if(extension == "txt") {
+	    	try {
+				File file = selectedFile;
+				Scanner myReader = new Scanner(file);
+				while (myReader.hasNextLine()) {
+					String data = myReader.nextLine();
+					System.out.println(data);
+				}
+				myReader.close();
+			} catch (FileNotFoundException e) {
+				System.out.println("An error occurred.");
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("The file is not a csv file.");
+		}
+
 	}
 }
