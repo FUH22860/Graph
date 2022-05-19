@@ -1,9 +1,6 @@
 package application;
 
-import java.io.File;
-
 import javafx.application.Application;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -17,17 +14,10 @@ public class Main extends Application {
 		try {
 			RootBorderPane root = new RootBorderPane();
 			Scene scene = new Scene(root,400,400);
-			primaryStage.setAlwaysOnTop(true);
+//			primaryStage.setAlwaysOnTop(true);
 			primaryStage.setTitle("Rechner");
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			
-			FileChooser fileChooser = new FileChooser();
-
-	        Button btImport = new Button("Select File");
-	        btImport.setOnAction(e -> {
-	            File selectedFile = fileChooser.showOpenDialog(primaryStage);
-	        });
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

@@ -4,13 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 public class RootBorderPane extends BorderPane {
@@ -28,7 +26,7 @@ public class RootBorderPane extends BorderPane {
 	private void initComponents() {
 		title = new Label("Do stuff");
 		tfInput = new TextField();
-		btInput = new Button("Abesnden");
+		btInput = new Button("Absenden");
 		btImport = new Button("Importieren");
 		gpInput = new GridPane();
 		
@@ -49,35 +47,29 @@ public class RootBorderPane extends BorderPane {
 	}
 	
 	public void importCSV() {
-		String extension = "";
+		String fileName = "";
+		String filePath = "";
 		
 		FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(null);
         
-        
-        File Readfile = selectedFile;
-		if (Readfile.exists()) {
-			String FileName = Readfile.getName();
-			String FilePath = Readfile.getAbsolutePath();
-
-			  int index = FileName.lastIndexOf('.');
-			  if (index > 0) {
-			      extension = FileName.substring(index + 1);
-			  }
-			  System.out.println(extension);
-			  
+        File readfile = selectedFile;
+		if (readfile.exists()) {
+			fileName = readfile.getName();
+			filePath = readfile.getAbsolutePath();
 		} else {
 			System.out.println("The file does not exist.");
 		}
 		
-		if(extension == "txt") {
+		if(fileName.endsWith(".csv")) {
 	    	try {
 				File file = selectedFile;
 				Scanner myReader = new Scanner(file);
+				String data = "";
 				while (myReader.hasNextLine()) {
-					String data = myReader.nextLine();
-					System.out.println(data);
+					data += myReader.nextLine();
 				}
+				System.out.println(data);
 				myReader.close();
 			} catch (FileNotFoundException e) {
 				System.out.println("An error occurred.");
