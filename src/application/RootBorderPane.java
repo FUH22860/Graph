@@ -12,7 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 
 public class RootBorderPane extends BorderPane {
-	private Label title;
+	private Label title, data;
 	private TextField tfInput;
 	private Button btInput, btImport;
 	private GridPane gpInput;
@@ -29,6 +29,7 @@ public class RootBorderPane extends BorderPane {
 		btInput = new Button("Absenden");
 		btImport = new Button("Importieren");
 		gpInput = new GridPane();
+		data = new Label();
 		
 		tfInput.setPromptText("test");
 	}
@@ -37,6 +38,7 @@ public class RootBorderPane extends BorderPane {
 		gpInput.add(btInput, 0, 0);
 		gpInput.add(tfInput, 1, 0);
 		gpInput.add(btImport, 2, 0);
+		gpInput.add(data, 1, 1);
 		
 		setTop(title);
 		setCenter(gpInput);
@@ -46,38 +48,25 @@ public class RootBorderPane extends BorderPane {
 		btImport.setOnAction(event -> importCSV());
 	}
 	
-	public void importCSV() {
-		String fileName = "";
-		String filePath = "";
-		
+	private void importCSV() {
 		FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(null);
         
-        File readfile = selectedFile;
-		if (readfile.exists()) {
-			fileName = readfile.getName();
-			filePath = readfile.getAbsolutePath();
-		} else {
-			System.out.println("The file does not exist.");
-		}
-		
-		if(fileName.endsWith(".csv")) {
+		if(selectedFile.getName().endsWith(".csv")) {
 	    	try {
-				File file = selectedFile;
-				Scanner myReader = new Scanner(file);
-				String data = "";
+				Scanner myReader = new Scanner(selectedFile);
+				
+				tfInput.setText(selectedFile.getAbsolutePath());
 				while (myReader.hasNextLine()) {
-					data += myReader.nextLine();
+					data.setText(myReader.nextLine());
 				}
-				System.out.println(data);
 				myReader.close();
 			} catch (FileNotFoundException e) {
-				System.out.println("An error occurred.");
+				System.out.println("File not Found");
 				e.printStackTrace();
 			}
 		} else {
-			System.out.println("The file is not a csv file.");
+			Main.showAlert("The file is not a csv file.");
 		}
-
 	}
 }
