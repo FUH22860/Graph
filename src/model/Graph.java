@@ -7,9 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Graph {
-//	private static int[][] adjacent = { {0,1,0}, 
-//									  	{1,0,1}, 
-//									  	{0,1,0} };
 	
 	private static int[][] adjacent = { {0,1,1,1,0}, 
 									  	{1,0,0,1,1}, 
@@ -37,20 +34,35 @@ public class Graph {
 		
 	}
 	
+//	public static int[][] calculateAdjacent2(int[][] adjacent) {
+//		
+//		int[][] adjacent2 = new int[adjacent.length][adjacent.length];
+//		
+//		for(int row = 0; row < adjacent.length; row++) {
+//			for(int col = 0; col < adjacent.length; col++) {    
+//				adjacent2[row][col] = 0; // Initialize Array
+//				for(int pos = 0; pos < adjacent.length; pos++) { // Position in Array
+//					adjacent2[row][col] += adjacent[row][pos] * adjacent[pos][col]; // row * col
+//				}
+//			}
+//		}
+//		
+//		return adjacent2;
+//	}
+	
 	public static int[][] calculateAdjacent2(int[][] adjacent) {
 		
-		int[][] adjacent2 = new int[adjacent.length][adjacent.length];
+		int[][] adjacent3 = new int[adjacent.length][adjacent.length];
 		
 		for(int row = 0; row < adjacent.length; row++) {
 			for(int col = 0; col < adjacent.length; col++) {    
-				adjacent2[row][col] = 0; // Initialize Array
-				for(int pos = 0; pos < adjacent.length; pos++) { // Position in Array
-					adjacent2[row][col] += adjacent[row][pos] * adjacent[pos][col]; // row * col
+				for(int pos = 0; pos < adjacent.length; pos++) {
+					adjacent3[row][col] += adjacent[pos][col] * adjacent[row][pos];
 				}
-			}
+			}  
 		}
 		
-		return adjacent2;
+		return adjacent3;
 	}
 	
     public static void getAdjacent2() {
@@ -78,9 +90,8 @@ public class Graph {
 		
 		for(int row = 0; row < adjacent.length; row++) {
 			for(int col = 0; col < adjacent.length; col++) {    
-				adjacent2[row][col] = 0; // Initialize Array
 				for(int pos = 0; pos < adjacent.length; pos++) {
-					adjacent3[row][col] += adjacent2[row][pos] * adjacent[pos][col];
+					adjacent3[row][col] += adjacent2[pos][col] * adjacent[row][pos];
 				}
 			}  
 		}
@@ -98,6 +109,7 @@ public class Graph {
             	for (int j = 0; j < adjacent.length; j++) {
             		System.out.print(adjacent3[i][j] + ", ");
             	}
+            	System.out.println("\n");
             }
         }
         else
