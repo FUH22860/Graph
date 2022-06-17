@@ -14,55 +14,44 @@ public class Graph {
 									  	{1,1,1,0,0},
 									  	{0,1,0,0,0} };
 	
-	private static int[][] distance = { {0,1,2}, 
-		  								{1,0,1}, 
-		  								{2,1,0} };
+	private static int[][] distance = { {0,1,1,1,2}, 
+		  								{1,0,2,1,1}, 
+		  								{1,2,0,1,3},
+		  								{1,1,1,0,2},
+		  								{2,1,3,2,0} };
 	
-	private static int[] eccentricities = {2,1,2}; // max Number from each individual Array in the distance Array
+	private static int[] eccentricities = {2,2,3,2,3}; // max Number from each individual Array in the distance Array
 	
-	private static int diameter = 2; // max Number in eccentricities
+	private static int diameter = 3; // max Number in eccentricities
 	
-	private static int radius = 1; // half of the diameter
+	private static int radius = 2; // half of the diameter
 	
-	private static int center = 2; // Every Knoten were eccentricities == radius
+	private static int center[] = {1,2,4}; // Every Knoten were eccentricities == radius
 	
-	private static int component[][] = { {1,2}, {2,3} };
+	private static int component[][] = { {1,2,3,4}, {2,5} };
 	
-	// Articulations, Bridges
+	private static int[] articulations = {2};
+	
+	private static int[][] bridges = {{2,5}};
 	
 	public Graph() {
 		
 	}
 	
-//	public static int[][] calculateAdjacent2(int[][] adjacent) {
-//		
-//		int[][] adjacent2 = new int[adjacent.length][adjacent.length];
-//		
-//		for(int row = 0; row < adjacent.length; row++) {
-//			for(int col = 0; col < adjacent.length; col++) {    
-//				adjacent2[row][col] = 0; // Initialize Array
-//				for(int pos = 0; pos < adjacent.length; pos++) { // Position in Array
-//					adjacent2[row][col] += adjacent[row][pos] * adjacent[pos][col]; // row * col
-//				}
-//			}
-//		}
-//		
-//		return adjacent2;
-//	}
-	
 	public static int[][] calculateAdjacent2(int[][] adjacent) {
 		
-		int[][] adjacent3 = new int[adjacent.length][adjacent.length];
+		int[][] adjacent2 = new int[adjacent.length][adjacent.length];
 		
 		for(int row = 0; row < adjacent.length; row++) {
 			for(int col = 0; col < adjacent.length; col++) {    
-				for(int pos = 0; pos < adjacent.length; pos++) {
-					adjacent3[row][col] += adjacent[pos][col] * adjacent[row][pos];
+				adjacent2[row][col] = 0; // Initialize Array
+				for(int pos = 0; pos < adjacent.length; pos++) { // Position in Array
+					adjacent2[row][col] += adjacent[row][pos] * adjacent[pos][col]; // row * col
 				}
-			}  
+			}
 		}
 		
-		return adjacent3;
+		return adjacent2;
 	}
 	
     public static void getAdjacent2() {
