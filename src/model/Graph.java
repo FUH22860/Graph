@@ -7,9 +7,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Graph {
-	private static int[][] adjacent = { {0,1,0}, 
-									  	{1,0,1}, 
-									  	{0,1,0} };
+//	private static int[][] adjacent = { {0,1,0}, 
+//									  	{1,0,1}, 
+//									  	{0,1,0} };
+	
+	private static int[][] adjacent = { {0,1,1,1,0}, 
+									  	{1,0,0,1,1}, 
+									  	{1,0,0,1,0},
+									  	{1,1,1,0,0},
+									  	{0,1,0,0,0} };
 	
 	private static int[][] distance = { {0,1,2}, 
 		  								{1,0,1}, 
@@ -41,7 +47,7 @@ public class Graph {
 				for(int pos = 0; pos < adjacent.length; pos++) { // Position in Array
 					adjacent2[row][col] += adjacent[row][pos] * adjacent[pos][col]; // row * col
 				}
-			}  
+			}
 		}
 		
 		return adjacent2;
@@ -57,6 +63,7 @@ public class Graph {
             	for (int j = 0; j < adjacent.length; j++) {
             		System.out.print(adjacent2[i][j] + ", ");
             	}
+            	System.out.println("\n");
             }
         }
         else
